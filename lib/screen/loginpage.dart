@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pikngrocers_vendor/constants.dart';
+import 'package:pikngrocers_vendor/screen/registerpage.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -41,7 +42,7 @@ class LoginPage extends StatelessWidget {
                 TextField(
                   style: TextStyle(
                     color: Colors.grey,
-                    fontSize: 13.0,
+                    fontSize: kLabelFontSize,
                   ),
                   decoration: InputDecoration(
                     prefixIcon: Icon(
@@ -58,7 +59,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     labelText: 'Email',
                     labelStyle: TextStyle(
-                      fontSize: 13,
+                      fontSize: kLabelFontSize,
                       color: kLoginPageColor,
                     ),
                   ),
@@ -68,11 +69,10 @@ class LoginPage extends StatelessWidget {
                   height: 10,
                 ),
                 TextField(
-
                   obscureText: true,
                   style: TextStyle(
                     color: Colors.grey,
-                    fontSize: 13.0,
+                    fontSize: kLabelFontSize,
                   ),
                   decoration: InputDecoration(
                     prefixIcon: Icon(
@@ -89,7 +89,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     labelText: 'Password',
                     labelStyle: TextStyle(
-                      fontSize: 13,
+                      fontSize: kLabelFontSize,
                       color: kLoginPageColor,
                     ),
                   ),
@@ -109,6 +109,29 @@ class LoginPage extends StatelessWidget {
                   ),
                   color: kLoginPageColor,
                 ),
+            Row(
+              crossAxisAlignment : CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                FlatButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Forgot Password?',
+                    style: TextStyle(decoration: TextDecoration.underline, color: Colors.red[400]),
+                  ),),
+                FlatButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage(),),);
+                  },
+                  child: Text(
+                    'Create Account',
+                    style: TextStyle(decoration: TextDecoration.underline, color: Colors.black54),
+                  ),
+                ),
+
+              ],
+            ),
+
               ],
             ),
           ),
