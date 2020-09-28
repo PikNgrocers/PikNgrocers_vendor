@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pikngrocers_vendor/constants.dart';
+import 'package:pikngrocers_vendor/service/auth.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -141,7 +142,20 @@ class _RegisterPageState extends State<RegisterPage> {
                 SizedBox(height: 10,),
                 RaisedButton(onPressed: (){
                   if(_formKey.currentState.validate()){
-
+                   try{
+                     Auth().registerUserWithEmailAndPassword(
+                       context: context,
+                       email: _email.text,
+                       username: _name.text,
+                       shopname: _shopName.text,
+                       fsno: _fssaiNumber.text,
+                       password: _password.text,
+                       phno: _phoneNumber.text,
+                       );
+                   }
+                   catch(e){
+                     print(e);
+                   }
                   }
                 },
                   child: Text('Sign Up',style: TextStyle(color: Colors.white, fontSize: 20,fontWeight: FontWeight.bold)),

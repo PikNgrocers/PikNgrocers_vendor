@@ -15,9 +15,9 @@ class NoInternet extends StatelessWidget {
             Text('No Network Check Your Connection and Click refresh Button Below',textAlign: TextAlign.center,),
             SizedBox(height: 20,),
             RaisedButton(onPressed: (){
-                Navigator.pushReplacementNamed(context, '/nettest');
+              Navigator.pushReplacementNamed(context, '/');
             },
-            child: Text('Refresh'),)
+              child: Text('Refresh'),)
           ],
         ),
       ),
