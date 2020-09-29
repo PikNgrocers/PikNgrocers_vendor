@@ -27,6 +27,7 @@ class _LandingPageState extends State<LandingPage> {
 
   FirebaseApp secondaryApp = Firebase.app('pik_n_grocers_vendor');
 
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(

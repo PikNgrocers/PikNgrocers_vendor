@@ -2,35 +2,72 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pikngrocers_vendor/constants.dart';
+import 'package:pikngrocers_vendor/models/user_uid.dart';
+import 'package:pikngrocers_vendor/screen/home.dart';
 import 'package:pikngrocers_vendor/service/database.dart';
 
 class Auth {
   FirebaseApp secondaryApp = Firebase.app('pik_n_grocers_vendor');
+  UserUid _userUid;
 
   Future registerUserWithEmailAndPassword(
-      {BuildContext context,String email, String password,String username, String shopname, String fsno, String phno}) async {
+      {BuildContext context,
+      String email,
+      String password,
+      String username,
+      String shopname,
+      String fsno,
+      String phno}) async {
     try {
       final result = await FirebaseAuth.instanceFor(app: secondaryApp)
           .createUserWithEmailAndPassword(email: email, password: password);
-      final user = result.user;
-      if(user == null){
+      User user = result.user;
+      if (user == null) {
         print('User is null');
-      }
-      else{
-        print(user);
-        await Database(uid: user.uid).updateUserData(
+      } else {
+        _userUid = UserUid(uid: user.uid);
+        await Database(uid: _userUid.uid).updateUserData(
           username: username,
           shopname: shopname,
           fsno: fsno,
           phno: phno,
         );
-        Navigator.pushReplacementNamed(context, '/home');
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Home()),
+            (Route<dynamic> route) => false);
       }
-
     } catch (e) {
       print(e);
     }
   }
+
+  Future loginUserWithEmailAndPassword(
+      {BuildContext context, String email, String password}) async {
+    try {
+      final result = await FirebaseAuth.instanceFor(app: secondaryApp)
+          .signInWithEmailAndPassword(email: email, password: password);
+      User user = result.user;
+      if (user == null) {
+        print('No user found');
+      } else {
+        _userUid = UserUid(uid: user.uid);
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Home()),
+            (Route<dynamic> route) => false);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future logout() {
+    return FirebaseAuth.instanceFor(app: secondaryApp).signOut();
+  }
+
 
   phoneAuth({String phoneNumber, BuildContext context}) async {
     TextEditingController _otpController = TextEditingController();
@@ -80,7 +117,10 @@ class OtpEnterScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         leading: IconButton(
-            icon: Icon(Icons.arrow_back,color: kRegisterBackgroundColor,),
+            icon: Icon(
+              Icons.arrow_back,
+              color: kRegisterBackgroundColor,
+            ),
             onPressed: () {
               Navigator.pop(context);
             }),

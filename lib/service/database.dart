@@ -19,4 +19,9 @@ class Database {
       'ph_no': phno,
     });
   }
+
+  Future<DocumentSnapshot> getDatas() async {
+    //TODO:Need to create map for products in firebase "not collection".
+    return await FirebaseFirestore.instanceFor(app: secondaryApp).collection('user').doc(uid).get();
+  }
 }
