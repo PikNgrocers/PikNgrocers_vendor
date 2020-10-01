@@ -36,7 +36,7 @@ class _LandingPageState extends State<LandingPage> {
           }
           if (snapshot.hasData && snapshot.data != null) {
             User user = snapshot.data;
-            return Home(uid: user.uid);
+            return Home(uid: user.uid,username: user.displayName,);
           }
           return LoginPage();
         });

@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pikngrocers_vendor/constants.dart';
+import 'package:pikngrocers_vendor/models/category_types.dart';
 import 'package:pikngrocers_vendor/product_utils/connect_product_head_and_add_helper.dart';
-import 'package:pikngrocers_vendor/product_utils/product_add_helper.dart';
-import 'file:///H:/Third%20sem%20online%20Class/SRP/pikngrocers_vendor/lib/product_utils/product_sub_head.dart';
 
 class ProductsPage extends StatefulWidget {
   final String uid;
@@ -16,60 +15,35 @@ class ProductsPage extends StatefulWidget {
 class _ProductsPageState extends State<ProductsPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Container(
-          color: Colors.white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 20.0),
-                color: kProductColor,
-                child: Center(
-                  child: Text(
-                    'PRODUCT',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-              Container(
-                color: Colors.white70,
-                margin: EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    ConnectHeadAndAddHelper(uid: widget.uid,text: 'Grocery & Staples',),
-                    ConnectHeadAndAddHelper(uid: widget.uid,text: 'Snacks'),
-                    ConnectHeadAndAddHelper(uid: widget.uid,text: 'Breakfast & Dairy'),
-                    ConnectHeadAndAddHelper(uid: widget.uid,text: 'Beverages'),
-                    ConnectHeadAndAddHelper(uid: widget.uid,text: 'Household Care'),
-                    ConnectHeadAndAddHelper(uid: widget.uid,text: 'Personal Care'),
-                    ConnectHeadAndAddHelper(uid: widget.uid,text: 'Packaged Food'),
-                    ConnectHeadAndAddHelper(uid: widget.uid,text: 'Fruits & Vegetables'),
-                  ],
-                ),
-              ),
-            ],
+    return DefaultTabController(
+      length: 9,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: Text(
+            'Products',
+            style: TextStyle(color: kProductColor),
+          ),
+          centerTitle: true,
+          bottom: TabBar(
+            labelColor: kProductColor,
+            indicatorColor: kProductColor,
+            isScrollable: true,
+            tabs: categoryTypes
+                .map(
+                  (e) => Tab(text: e.categoryTitle),
+                )
+                .toList(),
           ),
         ),
+        body: TabBarView(
+            children: categoryTypes
+                .map((e) => ConnectHeadAndAddHelper(
+                      uid: widget.uid,
+                      text: e.categoryTitle,
+                    ))
+                .toList()),
       ),
     );
   }
 }
-
-
-
-
-
-
-// try {
-// Database(uid: widget.uid).addProductGroceryStaples();
-// print('called');
-// } catch(e) {
-// print(e);
-// }

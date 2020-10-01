@@ -13,8 +13,7 @@ class Database {
 
   Future<void> updateUserData(
       {String shopname, String fsno, String phno}) async {
-    return await FirebaseFirestore.instanceFor(app: secondaryApp)
-        .collection('user')
+    return await users
         .doc(uid)
         .set({
       'shop_name': shopname,
@@ -24,11 +23,15 @@ class Database {
   }
 
   homeData() {
-    return FirebaseFirestore.instanceFor(app: secondaryApp)
-        .collection('user')
+    return users
         .doc(uid)
         .get();
   }
+
+  showProductData({String where}) {
+    return users.doc(uid).collection('product').doc(where).collection('product_list').snapshots();
+  }
+
 
   Future<void> addProductGroceryStaples(
       {String where,String proId, String proName, String proPrice, String proQuan}) async {
@@ -40,7 +43,8 @@ class Database {
         .doc(proId)
         .set(
           {
-              'Product_name': proName,
+              'Product_Id' : proId,
+              'Product_Name': proName,
               'Product_Quantity': proQuan,
               'Price': int.parse(proPrice),
           },
