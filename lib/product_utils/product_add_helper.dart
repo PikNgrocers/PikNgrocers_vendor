@@ -124,14 +124,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   textAlign: TextAlign.center,
                   keyboardType: TextInputType.number,
                   validator: (val) {
-                    if (val.isNotEmpty) {
-                      try {
-                        int one = int.parse(val);
-                        print(one);
-                      } on FormatException catch (e) {
-                        return 'Price value should be Number';
-                      }
-                    }
                     if (val.isEmpty) {
                       return 'Enter Product Price';
                     }
@@ -148,7 +140,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   onPressed: () async {
                     if (_formkey.currentState.validate()) {
                       try {
-                        Database(uid: widget.uid).addProductGroceryStaples(
+                        Database(uid: widget.uid).addProduct(
                           where: widget.where,
                           proId: _productId.text,
                           proName: _productName.text,
@@ -174,14 +166,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  SnackBar smallSnackBar() {
-    return SnackBar(
-      duration: Duration(seconds: 2),
-      content: Text('Product Added'),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
     );
   }
 }

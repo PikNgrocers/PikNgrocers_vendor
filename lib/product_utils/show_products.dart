@@ -18,13 +18,21 @@ class ProductList extends StatelessWidget {
             return Text('Error Occurs');
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator(value: 5,valueColor: AlwaysStoppedAnimation<Color>(kProductColor),));
+            return Center(
+                child: CircularProgressIndicator(
+              value: 5,
+              valueColor: AlwaysStoppedAnimation<Color>(kProductColor),
+            ));
           }
           return Container(
             child: snapshot.data.docs.length == 0
-                ? Center(child: Text('Sorry Empty..'),)
+                ? Center(
+                    child: Text('Sorry Empty..'),
+                  )
                 : ShowProductList(
                     snapshot: snapshot,
+              uid: uid,
+              where: where,
                   ),
           );
         });
@@ -33,7 +41,9 @@ class ProductList extends StatelessWidget {
 
 class ShowProductList extends StatelessWidget {
   final AsyncSnapshot<QuerySnapshot> snapshot;
-  ShowProductList({this.snapshot});
+  final uid;
+  final where;
+  ShowProductList({this.snapshot,this.uid,this.where});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +57,8 @@ class ShowProductList extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  margin: EdgeInsets.only(left: 20,right: 20,top: 30,bottom: 5),
+                  margin:
+                      EdgeInsets.only(left: 20, right: 20, top: 30, bottom: 5),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -56,7 +67,9 @@ class ShowProductList extends StatelessWidget {
                         'Product Name : ${doc[index].data()['Product_Name'].toString()}',
                         style: TextStyle(fontWeight: FontWeight.w700),
                       ),
-                      SizedBox(height: 5,),
+                      SizedBox(
+                        height: 5,
+                      ),
                       Text(
                         'Product ID : ${doc[index].data()['Product_Id'].toString()}',
                       ),
@@ -64,7 +77,7 @@ class ShowProductList extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20,vertical: 5),
+                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -98,7 +111,58 @@ class ShowProductList extends StatelessWidget {
                           ),
                         )),
                     FlatButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                            barrierDismissible: true,
+                            barrierColor: Colors.black54,
+                            context: context,
+                            child: AlertDialog(
+                              scrollable: false,
+                              title: Column(
+                                children: [
+                                  Icon(
+                                    Icons.warning,
+                                    size: 30,
+                                    color: Colors.red,
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text('Are You Sure ?'),
+                                ],
+                              ),
+                              actions: [
+                                FlatButton(
+                                    onPressed: () {
+                                      try{
+                                        Database(uid:uid).removeProduct(where: where,proId: doc[index].data()['Product_Id'].toString());
+                                        Navigator.pop(context);
+                                      } catch(e){
+                                        print('Cant Delete data');
+                                      }
+                                    },
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50),
+                                    ),
+                                    color: Colors.red,
+                                    textColor: Colors.white,
+                                    child: Text('Delete'),),
+                                SizedBox(height: 10,),
+                                FlatButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  color: Colors.grey,
+                                  textColor: Colors.white,
+                                  child: Text('Cancel'),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20),

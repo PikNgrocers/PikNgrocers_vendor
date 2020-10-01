@@ -22,18 +22,11 @@ class Database {
     });
   }
 
-  homeData() {
-    return users
-        .doc(uid)
-        .get();
-  }
-
   showProductData({String where}) {
     return users.doc(uid).collection('product').doc(where).collection('product_list').snapshots();
   }
 
-
-  Future<void> addProductGroceryStaples(
+  Future<void> addProduct(
       {String where,String proId, String proName, String proPrice, String proQuan}) async {
     return await users
         .doc(uid)
@@ -52,4 +45,18 @@ class Database {
         .then((value) => print('added'))
         .catchError((onError) => print('Failed to catch error $onError'));
   }
+
+  Future<void> removeProduct(
+      {String where,String proId}) async {
+    return await users
+        .doc(uid)
+        .collection('product')
+        .doc(where)
+        .collection('product_list')
+        .doc(proId)
+        .delete()
+        .then((value) => print('deleted'))
+        .catchError((onError) => print('Failed to catch error $onError'));
+  }
+
 }
