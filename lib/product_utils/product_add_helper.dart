@@ -142,10 +142,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       try {
                         Database(uid: widget.uid).addProduct(
                           where: widget.where,
-                          proId: _productId.text,
-                          proName: _productName.text,
-                          proPrice: _productPrice.text,
-                          proQuan: _productQuantity.text,
+                          proId: _productId.text.trim(),
+                          proName: _productName.text.trim(),
+                          proPrice: _productPrice.text.trim(),
+                          proQuan: _productQuantity.text.trim(),
                         );
                         Navigator.of(context).pop();
                       } catch (e) {
