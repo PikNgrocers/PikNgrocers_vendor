@@ -22,12 +22,12 @@ class Auth {
       final result = await FirebaseAuth.instanceFor(app: secondaryApp)
           .createUserWithEmailAndPassword(email: email, password: password);
       User user = result.user;
+      user.updateProfile(displayName: username);
       if (user == null) {
         print('User is null');
       } else {
         _userUid = UserUid(uid: user.uid);
         await Database(uid: _userUid.uid).updateUserData(
-          username: username,
           shopname: shopname,
           fsno: fsno,
           phno: phno,
@@ -35,7 +35,7 @@ class Auth {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-                builder: (context) => Home()),
+                builder: (context) => Home(uid: _userUid.uid,)),
             (Route<dynamic> route) => false);
       }
     } catch (e) {
@@ -56,7 +56,7 @@ class Auth {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-                builder: (context) => Home()),
+                builder: (context) => Home(uid: _userUid.uid,)),
             (Route<dynamic> route) => false);
       }
     } catch (e) {

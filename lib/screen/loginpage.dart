@@ -38,8 +38,8 @@ class LoginPage extends StatelessWidget {
                   ),
                   Image.asset(
                     'assets/images/vendor_login.png',
-                    width: 200,
-                    height: 200,
+                    width: 180,
+                    height: 180,
                   ),
                   SizedBox(
                     height: 20,
@@ -144,7 +144,7 @@ class LoginPage extends StatelessWidget {
                     onPressed: () {},
                     child: Text(
                       'Forgot Password?',
-                      style: TextStyle(decoration: TextDecoration.underline, color: Colors.red[400]),
+                      style: TextStyle(fontSize:13,decoration: TextDecoration.underline, color: Colors.red[400]),
                     ),),
                   FlatButton(
                     onPressed: () {
@@ -152,7 +152,7 @@ class LoginPage extends StatelessWidget {
                     },
                     child: Text(
                       'Create Account',
-                      style: TextStyle(decoration: TextDecoration.underline, color: Colors.black54),
+                      style: TextStyle(fontSize: 13,decoration: TextDecoration.underline, color: Colors.black54),
                     ),
                   ),
 

@@ -14,7 +14,7 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   var _result;
 
-  void getConnection() async{
+  void getConnection() async {
     _result = await Connectivity().checkConnectivity();
   }
 
@@ -24,23 +24,21 @@ class _LandingPageState extends State<LandingPage> {
     super.initState();
   }
 
-
   FirebaseApp secondaryApp = Firebase.app('pik_n_grocers_vendor');
-
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: FirebaseAuth.instanceFor(app: secondaryApp).authStateChanges(),
-      builder: (context, snapshot ) {
-        if (_result == ConnectivityResult.none) {
-          return NoInternet();
-        }
-        if (snapshot.hasData && snapshot.data != null) {
-          return Home();
-        }
-        return LoginPage();
-      }
-    );
+        stream: FirebaseAuth.instanceFor(app: secondaryApp).authStateChanges(),
+        builder: (context, snapshot) {
+          if (_result == ConnectivityResult.none) {
+            return NoInternet();
+          }
+          if (snapshot.hasData && snapshot.data != null) {
+            User user = snapshot.data;
+            return Home(uid: user.uid);
+          }
+          return LoginPage();
+        });
   }
 }
