@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pikngrocers_vendor/constants.dart';
 import 'package:pikngrocers_vendor/product_utils/connect_product_head_and_add_helper.dart';
-import 'package:pikngrocers_vendor/product_utils/product_add_helper.dart';
-import 'file:///H:/Third%20sem%20online%20Class/SRP/pikngrocers_vendor/lib/product_utils/product_sub_head.dart';
 
 class ProductsPage extends StatefulWidget {
   final String uid;
