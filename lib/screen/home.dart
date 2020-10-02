@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pikngrocers_vendor/constants.dart';
 import 'package:pikngrocers_vendor/screen/dashboardpage.dart';
-import 'package:pikngrocers_vendor/screen/offerspage.dart';
 import 'package:pikngrocers_vendor/screen/orderspage.dart';
 import 'package:pikngrocers_vendor/screen/productspage.dart';
 import 'package:pikngrocers_vendor/screen/walletpage.dart';
@@ -9,7 +8,8 @@ import 'package:pikngrocers_vendor/service/auth.dart';
 
 class Home extends StatefulWidget {
   final String uid;
-  Home({this.uid});
+  final String username;
+  Home({this.uid, this.username});
 
   @override
   _HomeState createState() => _HomeState();
@@ -18,7 +18,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
   final _pageController = PageController();
-
 
   @override
   void initState() {
@@ -29,16 +28,24 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.person_pin, color: Colors.black,),
-        title: Text('Wel${widget.uid}', style: TextStyle(color: Colors.black),),
+        leading: Icon(
+          Icons.person_pin,
+          color: Colors.grey,
+        ),
+        title: Text(
+          'Welcome ${widget.username}',
+          style: TextStyle(color: Colors.grey),
+        ),
         elevation: 0,
         backgroundColor: Colors.white,
         actions: [
-          IconButton(icon: Icon(Icons.exit_to_app), onPressed: () {
-            Auth().logout();
-            Navigator.pushReplacementNamed(context, '/');
-          },
-            color: Colors.black,
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () {
+              Auth().logout();
+              Navigator.pushReplacementNamed(context, '/');
+            },
+            color: Colors.grey,
             tooltip: 'Logout',
           )
         ],
@@ -49,14 +56,9 @@ class _HomeState extends State<Home> {
           ProductsPage(uid: widget.uid),
           OrdersPage(),
           DashBoardPage(),
-          OffersPage(),
           WalletPage(),
         ],
-        onPageChanged: (page) {
-          setState(() {
-            _currentIndex = page;
-          });
-        },
+        physics: NeverScrollableScrollPhysics(),
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedFontSize: kLabelFontSize,
@@ -78,11 +80,6 @@ class _HomeState extends State<Home> {
             backgroundColor: kDashBoardColor,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.local_offer),
-            title: Text('Offers'),
-            backgroundColor: kOfferColor,
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.account_balance_wallet),
             title: Text('Wallet'),
             backgroundColor: kWalletColor,
@@ -90,7 +87,6 @@ class _HomeState extends State<Home> {
         ],
         onTap: (index) {
           setState(() {
-            print(index);
             _currentIndex = index;
           });
           _pageController.jumpToPage(index);

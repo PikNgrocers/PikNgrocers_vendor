@@ -20,7 +20,7 @@ class Auth {
       String phno}) async {
     try {
       final result = await FirebaseAuth.instanceFor(app: secondaryApp)
-          .createUserWithEmailAndPassword(email: email, password: password);
+          .createUserWithEmailAndPassword(email: email.trim(), password: password.trim());
       User user = result.user;
       user.updateProfile(displayName: username);
       if (user == null) {
@@ -47,7 +47,7 @@ class Auth {
       {BuildContext context, String email, String password}) async {
     try {
       final result = await FirebaseAuth.instanceFor(app: secondaryApp)
-          .signInWithEmailAndPassword(email: email, password: password);
+          .signInWithEmailAndPassword(email: email.trim(), password: password.trim());
       User user = result.user;
       if (user == null) {
         print('No user found');

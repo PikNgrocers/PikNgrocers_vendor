@@ -13,8 +13,7 @@ class Database {
 
   Future<void> updateUserData(
       {String shopname, String fsno, String phno}) async {
-    return await FirebaseFirestore.instanceFor(app: secondaryApp)
-        .collection('user')
+    return await users
         .doc(uid)
         .set({
       'shop_name': shopname,
@@ -23,15 +22,12 @@ class Database {
     });
   }
 
-  homeData() {
-    return FirebaseFirestore.instanceFor(app: secondaryApp)
-        .collection('user')
-        .doc(uid)
-        .get();
+  showProductData({String where}) {
+    return users.doc(uid).collection('product').doc(where).collection('product_list').snapshots();
   }
 
-  Future<void> addProductGroceryStaples(
-      {String where,String proId, String proName, String proPrice, String proQuan}) async {
+  Future<void> addProduct(
+      {String where,String proId, String proName, String proPrice, String proQuan,String offerPrice}) async {
     return await users
         .doc(uid)
         .collection('product')
@@ -40,12 +36,61 @@ class Database {
         .doc(proId)
         .set(
           {
-              'Product_name': proName,
+              'Product_Id' : proId,
+              'Product_Name': proName,
               'Product_Quantity': proQuan,
               'Price': int.parse(proPrice),
+              'Offer_price' : offerPrice == null ? null : int.parse(offerPrice),
           },
         )
         .then((value) => print('added'))
         .catchError((onError) => print('Failed to catch error $onError'));
   }
+  Future<void> addOffer(
+      {String where,String proId,String offerPrice}) async {
+    return await users
+        .doc(uid)
+        .collection('product')
+        .doc(where)
+        .collection('product_list')
+        .doc(proId)
+        .update(
+      {
+        'Offer_price' : offerPrice == null ? null : int.parse(offerPrice),
+      },
+    )
+        .then((value) => print('updated'))
+        .catchError((onError) => print('Failed to catch error $onError'));
+  }
+
+  Future<void> removeOffer(
+      {String where,String proId}) async {
+    return await users
+        .doc(uid)
+        .collection('product')
+        .doc(where)
+        .collection('product_list')
+        .doc(proId)
+        .update(
+      {
+        'Offer_price' : null,
+      },
+    )
+        .then((value) => print('updated'))
+        .catchError((onError) => print('Failed to catch error $onError'));
+  }
+
+  Future<void> removeProduct(
+      {String where,String proId}) async {
+    return await users
+        .doc(uid)
+        .collection('product')
+        .doc(where)
+        .collection('product_list')
+        .doc(proId)
+        .delete()
+        .then((value) => print('deleted'))
+        .catchError((onError) => print('Failed to catch error $onError'));
+  }
+
 }
