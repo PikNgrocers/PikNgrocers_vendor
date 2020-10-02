@@ -9,32 +9,35 @@ class ConnectHeadAndAddHelper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        FlatButton.icon(
-          onPressed: () {
-            showDialog(
-              barrierDismissible: false,
-              barrierColor: Colors.black54,
-              context: context,
-              child: AddProductScreen(
-                uid: uid,
-                where: text,
-              ),
-            );
-          },
-          textColor: Colors.grey,
-          icon: Icon(Icons.add_circle_outline),
-          label: Text('Add Product'),
-        ),
-        Expanded(
-          child: ProductList(
-            uid: uid,
-            where: text,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          FlatButton.icon(
+            onPressed: () {
+              showDialog(
+                barrierDismissible: false,
+                barrierColor: Colors.black54,
+                context: context,
+                child: AddProductScreen(
+                  uid: uid,
+                  where: text,
+                ),
+              );
+            },
+            textColor: Colors.black87,
+            icon: Icon(Icons.add_circle_outline),
+            label: Text('Add Product'),
           ),
-        ),
-      ],
+          Expanded(
+            child: ProductList(
+              uid: uid,
+              where: text,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

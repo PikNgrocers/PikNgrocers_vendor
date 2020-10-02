@@ -22,6 +22,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   final _productPrice = TextEditingController();
 
+  final _offerPrice = TextEditingController();
+
   @override
   void dispose() {
     _productId.dispose();
@@ -136,6 +138,14 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 SizedBox(
                   height: 10,
                 ),
+                TextFormField(
+                  controller: _offerPrice,
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: 'Offer Price',
+                  ),
+                ),
                 FlatButton(
                   onPressed: () async {
                     if (_formkey.currentState.validate()) {
@@ -146,6 +156,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           proName: _productName.text.trim(),
                           proPrice: _productPrice.text.trim(),
                           proQuan: _productQuantity.text.trim(),
+                          offerPrice: _offerPrice.text == null ? null : _offerPrice.text.trim(),
                         );
                         Navigator.of(context).pop();
                       } catch (e) {

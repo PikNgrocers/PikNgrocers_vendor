@@ -27,7 +27,7 @@ class Database {
   }
 
   Future<void> addProduct(
-      {String where,String proId, String proName, String proPrice, String proQuan}) async {
+      {String where,String proId, String proName, String proPrice, String proQuan,String offerPrice}) async {
     return await users
         .doc(uid)
         .collection('product')
@@ -40,9 +40,43 @@ class Database {
               'Product_Name': proName,
               'Product_Quantity': proQuan,
               'Price': int.parse(proPrice),
+              'Offer_price' : offerPrice == null ? null : int.parse(offerPrice),
           },
         )
         .then((value) => print('added'))
+        .catchError((onError) => print('Failed to catch error $onError'));
+  }
+  Future<void> addOffer(
+      {String where,String proId,String offerPrice}) async {
+    return await users
+        .doc(uid)
+        .collection('product')
+        .doc(where)
+        .collection('product_list')
+        .doc(proId)
+        .update(
+      {
+        'Offer_price' : offerPrice == null ? null : int.parse(offerPrice),
+      },
+    )
+        .then((value) => print('updated'))
+        .catchError((onError) => print('Failed to catch error $onError'));
+  }
+
+  Future<void> removeOffer(
+      {String where,String proId}) async {
+    return await users
+        .doc(uid)
+        .collection('product')
+        .doc(where)
+        .collection('product_list')
+        .doc(proId)
+        .update(
+      {
+        'Offer_price' : null,
+      },
+    )
+        .then((value) => print('updated'))
         .catchError((onError) => print('Failed to catch error $onError'));
   }
 

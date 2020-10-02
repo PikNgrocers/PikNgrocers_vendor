@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pikngrocers_vendor/constants.dart';
 import 'package:pikngrocers_vendor/screen/dashboardpage.dart';
-import 'package:pikngrocers_vendor/screen/offerspage.dart';
 import 'package:pikngrocers_vendor/screen/orderspage.dart';
 import 'package:pikngrocers_vendor/screen/productspage.dart';
 import 'package:pikngrocers_vendor/screen/walletpage.dart';
@@ -50,7 +49,6 @@ class _HomeState extends State<Home> {
           ProductsPage(uid: widget.uid),
           OrdersPage(),
           DashBoardPage(),
-          OffersPage(),
           WalletPage(),
         ],
         physics: NeverScrollableScrollPhysics(),
@@ -75,11 +73,6 @@ class _HomeState extends State<Home> {
             backgroundColor: kDashBoardColor,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.local_offer),
-            title: Text('Offers'),
-            backgroundColor: kOfferColor,
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.account_balance_wallet),
             title: Text('Wallet'),
             backgroundColor: kWalletColor,
@@ -87,7 +80,6 @@ class _HomeState extends State<Home> {
         ],
         onTap: (index) {
           setState(() {
-            print(index);
             _currentIndex = index;
           });
           _pageController.jumpToPage(index);
