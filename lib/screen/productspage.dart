@@ -18,22 +18,25 @@ class _ProductsPageState extends State<ProductsPage> {
     return DefaultTabController(
       length: 9,
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          title: Text(
-            'Products',
-            style: TextStyle(color: kProductColor),
-          ),
-          centerTitle: true,
-          bottom: TabBar(
-            labelColor: kProductColor,
-            indicatorColor: kProductColor,
-            isScrollable: true,
-            tabs: categoryTypes
-                .map(
-                  (e) => Tab(text: e.categoryTitle),
-                )
-                .toList(),
+        appBar: PreferredSize(
+          preferredSize: Size(double.infinity, 80),
+          child: AppBar(
+            backgroundColor: Colors.white,
+            title: Text(
+              'Products',
+              style: TextStyle(color: kProductColor),
+            ),
+            centerTitle: true,
+            bottom: TabBar(
+              labelColor: kProductColor,
+              indicatorColor: kProductColor,
+              isScrollable: true,
+              tabs: categoryTypes
+                  .map(
+                    (e) => Tab(text: e.categoryTitle),
+                  )
+                  .toList(),
+            ),
           ),
         ),
         body: TabBarView(

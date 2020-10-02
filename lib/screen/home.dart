@@ -9,7 +9,7 @@ import 'package:pikngrocers_vendor/service/auth.dart';
 class Home extends StatefulWidget {
   final String uid;
   final String username;
-  Home({this.uid,this.username});
+  Home({this.uid, this.username});
 
   @override
   _HomeState createState() => _HomeState();
@@ -18,7 +18,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _currentIndex = 0;
   final _pageController = PageController();
-
 
   @override
   void initState() {
@@ -29,15 +28,23 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.person_pin, color: Colors.grey,),
-        title: Text('Welcome ${widget.username}', style: TextStyle(color: Colors.grey),),
+        leading: Icon(
+          Icons.person_pin,
+          color: Colors.grey,
+        ),
+        title: Text(
+          'Welcome ${widget.username}',
+          style: TextStyle(color: Colors.grey),
+        ),
         elevation: 0,
         backgroundColor: Colors.white,
         actions: [
-          IconButton(icon: Icon(Icons.exit_to_app), onPressed: () {
-            Auth().logout();
-            Navigator.pushReplacementNamed(context, '/');
-          },
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () {
+              Auth().logout();
+              Navigator.pushReplacementNamed(context, '/');
+            },
             color: Colors.grey,
             tooltip: 'Logout',
           )
