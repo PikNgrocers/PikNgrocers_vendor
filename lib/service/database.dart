@@ -10,6 +10,10 @@ class Database {
       FirebaseFirestore.instanceFor(app: Firebase.app('pik_n_grocers_vendor'))
           .collection('vendors');
 
+  CollectionReference vendorGps =
+  FirebaseFirestore.instanceFor(app: Firebase.app('pik_n_grocers_vendor'))
+      .collection('vendors_gps');
+
   Future<void> updateUserData(
       {String shopname, String fsno, String phno,String username}) async {
     return await vendors
@@ -22,7 +26,16 @@ class Database {
     });
   }
 
-  showProductData({String where}) {
+  Future<void> vendorLocationData(
+  {double lat,double lon,String shopName}) async {
+    return await vendorGps.add({
+      'vendor_id' : uid,
+      'shop_name' : shopName,
+      'gps_position' : GeoPoint(lat, lon),
+    });
+  }
+
+  showProductData({String where,}) {
     return vendors.doc(uid).collection('product').doc(where).collection('product_list').snapshots();
   }
 
