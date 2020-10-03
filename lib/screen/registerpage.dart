@@ -80,6 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: _shopName,
                   decoration: registerFieldDecoration(labelText: 'Shop Name'),
                 ),
+                SizedBox(height: 10,),
                 TextFormField(
                   keyboardType: TextInputType.number,
                   maxLength: 14,
