@@ -37,7 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
         elevation: 0,
         backgroundColor: kRegisterBackgroundColor,
         centerTitle: true,
-        title: Text('Register',style: TextStyle(fontSize: 30,color: Colors.white ),),
+        title: Text('Register',style: TextStyle(fontSize: 25,color: Colors.white ),),
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
@@ -49,8 +49,11 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          color: Colors.white,
-          margin: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          margin: EdgeInsets.all(10),
           padding: EdgeInsets.all(20),
           child: Form(
             key: _formKey,
@@ -80,6 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: _shopName,
                   decoration: registerFieldDecoration(labelText: 'Shop Name'),
                 ),
+                SizedBox(height: 10,),
                 TextFormField(
                   keyboardType: TextInputType.number,
                   maxLength: 14,
@@ -114,6 +118,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   decoration: registerFieldDecoration(labelText: 'Phone Number'),
                 ),
                 SizedBox(height: 10,),
+
                 TextFormField(
                   keyboardType: TextInputType.emailAddress,
                   validator: (val){
@@ -172,7 +177,11 @@ class _RegisterPageState extends State<RegisterPage> {
   InputDecoration registerFieldDecoration({String labelText}) {
     return InputDecoration(
       labelText: labelText,
-      labelStyle: TextStyle(color: kRegisterBackgroundColor, fontSize: 20),
+      labelStyle: TextStyle(color: kRegisterBackgroundColor),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: kRegisterBackgroundColor),
+        borderRadius: BorderRadius.circular(10),
+      ),
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: kRegisterBackgroundColor),
       ),

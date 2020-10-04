@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pikngrocers_vendor/constants.dart';
 import 'package:pikngrocers_vendor/models/user_uid.dart';
 import 'package:pikngrocers_vendor/screen/home.dart';
+import 'package:pikngrocers_vendor/screen/map_location_page.dart';
 import 'package:pikngrocers_vendor/service/database.dart';
 
 class Auth {
@@ -31,11 +32,12 @@ class Auth {
           shopname: shopname,
           fsno: fsno,
           phno: phno,
+          username: username,
         );
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-                builder: (context) => Home(uid: _userUid.uid,)),
+                builder: (context) => LocationScreen(uid: _userUid.uid,shopname: shopname,username: username,),),
             (Route<dynamic> route) => false);
       }
     } catch (e) {
@@ -56,13 +58,14 @@ class Auth {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-                builder: (context) => Home(uid: _userUid.uid,)),
+                builder: (context) => Home(uid: _userUid.uid,username: user.displayName,)),
             (Route<dynamic> route) => false);
       }
     } catch (e) {
       print(e);
     }
   }
+
 
   Future logout() {
     return FirebaseAuth.instanceFor(app: secondaryApp).signOut();

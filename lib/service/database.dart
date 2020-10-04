@@ -3,32 +3,46 @@ import 'package:firebase_core/firebase_core.dart';
 
 class Database {
   final String uid;
-
   Database({this.uid});
 
   FirebaseApp secondaryApp = Firebase.app('pik_n_grocers_vendor');
-  CollectionReference users =
+  CollectionReference vendors =
       FirebaseFirestore.instanceFor(app: Firebase.app('pik_n_grocers_vendor'))
-          .collection('user');
+          .collection('vendors');
+
+  CollectionReference vendorGps =
+  FirebaseFirestore.instanceFor(app: Firebase.app('pik_n_grocers_vendor'))
+      .collection('vendors_gps');
 
   Future<void> updateUserData(
-      {String shopname, String fsno, String phno}) async {
-    return await users
+      {String shopname, String fsno, String phno,String username}) async {
+    return await vendors
         .doc(uid)
         .set({
+      'username' : username,
       'shop_name': shopname,
       'fs_no': fsno,
       'ph_no': phno,
     });
   }
 
-  showProductData({String where}) {
-    return users.doc(uid).collection('product').doc(where).collection('product_list').snapshots();
+  Future<void> vendorLocationData(
+  {double lat,double lon,String shopName,String address}) async {
+    return await vendorGps.add({
+      'vendor_id' : uid,
+      'shop_name' : shopName,
+      'gps_position' : GeoPoint(lat, lon),
+      'address' : address,
+    });
+  }
+
+  showProductData({String where,}) {
+    return vendors.doc(uid).collection('product').doc(where).collection('product_list').snapshots();
   }
 
   Future<void> addProduct(
       {String where,String proId, String proName, String proPrice, String proQuan,String offerPrice}) async {
-    return await users
+    return await vendors
         .doc(uid)
         .collection('product')
         .doc(where)
@@ -48,7 +62,7 @@ class Database {
   }
   Future<void> addOffer(
       {String where,String proId,String offerPrice}) async {
-    return await users
+    return await vendors
         .doc(uid)
         .collection('product')
         .doc(where)
@@ -65,7 +79,7 @@ class Database {
 
   Future<void> removeOffer(
       {String where,String proId}) async {
-    return await users
+    return await vendors
         .doc(uid)
         .collection('product')
         .doc(where)
@@ -82,7 +96,7 @@ class Database {
 
   Future<void> removeProduct(
       {String where,String proId}) async {
-    return await users
+    return await vendors
         .doc(uid)
         .collection('product')
         .doc(where)

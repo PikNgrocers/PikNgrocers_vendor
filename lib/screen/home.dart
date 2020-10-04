@@ -66,22 +66,22 @@ class _HomeState extends State<Home> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
-            title: Text('Product'),
+            label: 'Product',
             backgroundColor: kProductColor,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment),
-            title: Text('Orders'),
+            label: 'Orders',
             backgroundColor: kOrderColor,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
-            title: Text('Dashboard'),
+            label:'Dashboard',
             backgroundColor: kDashBoardColor,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_balance_wallet),
-            title: Text('Wallet'),
+            label: 'Wallet',
             backgroundColor: kWalletColor,
           ),
         ],
