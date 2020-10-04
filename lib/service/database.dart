@@ -27,11 +27,12 @@ class Database {
   }
 
   Future<void> vendorLocationData(
-  {double lat,double lon,String shopName}) async {
+  {double lat,double lon,String shopName,String address}) async {
     return await vendorGps.add({
       'vendor_id' : uid,
       'shop_name' : shopName,
       'gps_position' : GeoPoint(lat, lon),
+      'address' : address,
     });
   }
 
