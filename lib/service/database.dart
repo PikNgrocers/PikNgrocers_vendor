@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 
 class Database {
   final String uid;
@@ -13,6 +14,8 @@ class Database {
   CollectionReference vendorGps =
   FirebaseFirestore.instanceFor(app: Firebase.app('pik_n_grocers_vendor'))
       .collection('vendors_gps');
+
+  final geo = Geoflutterfire();
 
   Future<void> updateUserData(
       {String shopname, String fsno, String phno,String username}) async {
@@ -28,11 +31,12 @@ class Database {
 
   Future<void> vendorLocationData(
   {double lat,double lon,String shopName,String address}) async {
+    GeoFirePoint location = geo.point(latitude: lat, longitude: lon);
     return await vendorGps.add({
       'vendor_id' : uid,
       'shop_name' : shopName,
-      'gps_position' : GeoPoint(lat, lon),
       'address' : address,
+      'position' : location.data,
     });
   }
 
