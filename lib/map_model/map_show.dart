@@ -96,7 +96,6 @@ class _GoogleMapShowTimeState extends State<GoogleMapShowTime> {
                     onPressed: () {
                       try {
                         Database(uid: widget.uid).vendorLocationData(
-                          shopName: widget.shopname,
                           lat: lat,
                           lon: lon,
                           address: resultAddress,

@@ -26,7 +26,7 @@ class ConnectHeadAndAddHelper extends StatelessWidget {
                 ),
               );
             },
-            textColor: Colors.black87,
+            textColor: Colors.grey,
             icon: Icon(Icons.add_circle_outline),
             label: Text('Add Product'),
           ),
