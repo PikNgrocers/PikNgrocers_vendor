@@ -87,7 +87,7 @@ class ShowProductList extends StatelessWidget {
                       Text(
                         'Quantity : ${doc[index].data()['Product_Quantity'].toString()}',
                       ),
-                      doc[index].data()['Offer_price'] == null
+                      doc[index].data()['Offer_price'] == 0
                           ? Text(
                               'Price : ₹${doc[index].data()['Price'].toString()}',
                             )
@@ -116,7 +116,7 @@ class ShowProductList extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    doc[index].data()['Offer_price'] != null
+                    doc[index].data()['Offer_price'] != 0
                         ? removeOfferFlatButton(doc, index)
                         : addOfferFlatButton(context, doc, index),
                     FlatButton(

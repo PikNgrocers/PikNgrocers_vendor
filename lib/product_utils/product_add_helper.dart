@@ -92,6 +92,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 TextFormField(
                   controller: _productName,
                   textAlign: TextAlign.center,
+                  textCapitalization: TextCapitalization.sentences,
                   validator: (val) {
                     if (val.isEmpty) {
                       return 'Enter Product Name';

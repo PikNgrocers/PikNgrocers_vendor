@@ -62,7 +62,7 @@ class Database {
             'Product_category': where,
             'Product_Quantity': proQuan,
             'Price': int.parse(proPrice),
-            'Offer_price': offerPrice == "" ? null : int.parse(offerPrice),
+            'Offer_price': offerPrice == "" ? 0 : int.parse(offerPrice),
           },
         )
         .then((value) => print('added'))
@@ -74,7 +74,7 @@ class Database {
         .doc(proId)
         .update(
           {
-            'Offer_price': offerPrice == null ? null : int.parse(offerPrice),
+            'Offer_price': offerPrice == "" ? 0 : int.parse(offerPrice),
           },
         )
         .then((value) => print('updated'))
@@ -86,7 +86,7 @@ class Database {
         .doc(proId)
         .update(
           {
-            'Offer_price': null,
+            'Offer_price': 0,
           },
         )
         .then((value) => print('updated'))
