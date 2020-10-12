@@ -38,7 +38,6 @@ class ProductList extends StatelessWidget {
   }
 }
 
-
 class ShowProductList extends StatelessWidget {
   final AsyncSnapshot<QuerySnapshot> snapshot;
   final uid;
@@ -74,7 +73,7 @@ class ShowProductList extends StatelessWidget {
                       ),
                       Text(
                         'Product ID : ${doc[index].data()['Product_Id'].toString()}',
-                        style: TextStyle(fontSize: 13,color: Colors.black),
+                        style: TextStyle(fontSize: 13, color: Colors.black),
                       ),
                     ],
                   ),

@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 class DashBoardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Text('Comes In Next Version !'),
+      ),
+    );
   }
 }

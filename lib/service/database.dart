@@ -15,6 +15,10 @@ class Database {
       FirebaseFirestore.instanceFor(app: Firebase.app('pik_n_grocers_vendor'))
           .collection('products');
 
+  CollectionReference orders =
+      FirebaseFirestore.instanceFor(app: Firebase.app('pik_n_grocers_vendor'))
+          .collection('orders');
+
   final geo = Geoflutterfire();
 
   Future<void> updateUserData(
@@ -41,8 +45,13 @@ class Database {
     String where,
   }) {
     return products
-    .where('vendor_Id',isEqualTo: uid)
-    .where('Product_category',isEqualTo: where).snapshots();
+        .where('vendor_Id', isEqualTo: uid)
+        .where('Product_category', isEqualTo: where)
+        .snapshots();
+  }
+
+  showOrderData(String userId) {
+    return orders.where('VendorId', isEqualTo: userId).snapshots();
   }
 
   Future<void> addProduct(
@@ -99,5 +108,29 @@ class Database {
         .delete()
         .then((value) => print('deleted'))
         .catchError((onError) => print('Failed to catch error $onError'));
+  }
+
+  Future<void> updateOrderStatusToAccepted({String docId}) async {
+    return await orders
+        .doc(docId)
+        .update({'OrderStatus': 'Accepted'})
+        .then((value) => print('updated'))
+        .catchError((e) => print('Error on Update >>>>>$e'));
+  }
+
+  Future<void> updateOrderStatusToPacked({String docId}) async {
+    return await orders
+        .doc(docId)
+        .update({'OrderStatus': 'Packed'})
+        .then((value) => print('updated'))
+        .catchError((e) => print('Error on Update >>>>>$e'));
+  }
+
+  Future<void> updateOrderStatusToCashReceived({String docId}) async {
+    return await orders
+        .doc(docId)
+        .update({'OrderStatus': 'Cash Received'})
+        .then((value) => print('updated'))
+        .catchError((e) => print('Error on Update >>>>>$e'));
   }
 }

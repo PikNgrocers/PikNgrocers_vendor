@@ -42,7 +42,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
             borderRadius: BorderRadius.circular(20),
             color: Colors.white,
           ),
-          width: MediaQuery.of(context).size.width * (95 / 100),
           padding: EdgeInsets.only(left: 10, bottom: 20, top: 10, right: 10),
           child: Form(
             key: _formkey,
