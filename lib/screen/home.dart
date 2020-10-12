@@ -54,7 +54,9 @@ class _HomeState extends State<Home> {
         controller: _pageController,
         children: [
           ProductsPage(uid: widget.uid),
-          OrdersPage(),
+          OrdersPage(
+            userId: widget.uid,
+          ),
           DashBoardPage(),
           WalletPage(),
         ],
@@ -66,7 +68,7 @@ class _HomeState extends State<Home> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
-            label: 'Product',
+            label: 'Products',
             backgroundColor: kProductColor,
           ),
           BottomNavigationBarItem(
@@ -76,7 +78,7 @@ class _HomeState extends State<Home> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.dashboard),
-            label:'Dashboard',
+            label: 'Dashboard',
             backgroundColor: kDashBoardColor,
           ),
           BottomNavigationBarItem(
