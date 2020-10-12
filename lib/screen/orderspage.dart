@@ -60,7 +60,7 @@ class OrdersPage extends StatelessWidget {
                           leading: IconButton(
                             icon: Icon(
                               Icons.list,
-                              color: Colors.white,
+                              color: doc[i].data()['OrderStatus'] == 'Cash Received' ? Colors.green : Colors.white,
                             ),
                             onPressed: () {
                               showDialog(
