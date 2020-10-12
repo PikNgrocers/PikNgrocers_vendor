@@ -54,7 +54,7 @@ class ShowProductList extends StatelessWidget {
         itemCount: doc.length,
         itemBuilder: (context, index) {
           return Card(
-            color: Colors.white,
+            color: Color(0xffddffe3),
             elevation: 3,
             child: Column(
               children: [
@@ -67,13 +67,14 @@ class ShowProductList extends StatelessWidget {
                     children: [
                       Text(
                         'Product Name : ${doc[index].data()['Product_Name'].toString()}',
-                        style: TextStyle(fontWeight: FontWeight.w700),
+                        style: TextStyle(color: Colors.black),
                       ),
                       SizedBox(
                         height: 5,
                       ),
                       Text(
                         'Product ID : ${doc[index].data()['Product_Id'].toString()}',
+                        style: TextStyle(fontSize: 13,color: Colors.black),
                       ),
                     ],
                   ),
@@ -86,7 +87,7 @@ class ShowProductList extends StatelessWidget {
                       Text(
                         'Quantity : ${doc[index].data()['Product_Quantity'].toString()}',
                       ),
-                      doc[index].data()['Offer_price'] == null
+                      doc[index].data()['Offer_price'] == 0
                           ? Text(
                               'Price : ₹${doc[index].data()['Price'].toString()}',
                             )
@@ -115,7 +116,7 @@ class ShowProductList extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    doc[index].data()['Offer_price'] != null
+                    doc[index].data()['Offer_price'] != 0
                         ? removeOfferFlatButton(doc, index)
                         : addOfferFlatButton(context, doc, index),
                     FlatButton(
@@ -222,7 +223,6 @@ class ShowProductList extends StatelessWidget {
                   onPressed: () {
                     try {
                       Database(uid: uid).addOffer(
-                        where: where,
                         proId: doc[index].data()['Product_Id'].toString(),
                         offerPrice: _offerPrice.text.trim(),
                       );
@@ -268,7 +268,6 @@ class ShowProductList extends StatelessWidget {
       onPressed: () {
         try {
           Database(uid: uid).removeOffer(
-            where: where,
             proId: doc[index].data()['Product_Id'].toString(),
           );
         } catch (e) {

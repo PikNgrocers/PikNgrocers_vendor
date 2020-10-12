@@ -92,6 +92,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 TextFormField(
                   controller: _productName,
                   textAlign: TextAlign.center,
+                  textCapitalization: TextCapitalization.sentences,
                   validator: (val) {
                     if (val.isEmpty) {
                       return 'Enter Product Name';
@@ -158,14 +159,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           proQuan: _productQuantity.text.trim(),
                           offerPrice: _offerPrice.text == null ? null : _offerPrice.text.trim(),
                         );
-                        Navigator.of(context).pop();
                       } catch (e) {
                         print('Something went wrong $e');
                       }
-                      _productId.clear();
-                      _productName.clear();
-                      _productQuantity.clear();
-                      _productPrice.clear();
+                      Navigator.of(context).pop();
                     }
                   },
                   color: Colors.blue,

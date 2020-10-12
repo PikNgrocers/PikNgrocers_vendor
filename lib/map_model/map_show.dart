@@ -36,6 +36,8 @@ class _GoogleMapShowTimeState extends State<GoogleMapShowTime> {
 
   @override
   Widget build(BuildContext context) {
+    lat = widget.markerLocation == null ? widget.userLocation.latitude : widget.markerLocation.latitude;
+    lon = widget.markerLocation == null ? widget.userLocation.longitude : widget.markerLocation.longitude;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -94,7 +96,6 @@ class _GoogleMapShowTimeState extends State<GoogleMapShowTime> {
                     onPressed: () {
                       try {
                         Database(uid: widget.uid).vendorLocationData(
-                          shopName: widget.shopname,
                           lat: lat,
                           lon: lon,
                           address: resultAddress,
@@ -117,18 +118,6 @@ class _GoogleMapShowTimeState extends State<GoogleMapShowTime> {
                     textColor: Colors.white,
                   ),
                   SizedBox(height: 5,),
-                  FlatButton(
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    textColor: Colors.white,
-                    color: Colors.black54,
-                    child: Text('SKIP'),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30))),
-                    onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, '/', (route) => false);
-                    },
-                  ),
                 ],
               ),
             ),
