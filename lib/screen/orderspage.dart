@@ -12,7 +12,7 @@ class OrdersPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color(0xffe8eff7),
       body: StreamBuilder<QuerySnapshot>(
-        stream: Database().showOrderData(userId),
+        stream: Database(uid: userId).showOrderData(userId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
             var doc = snapshot.data.docs;
@@ -80,7 +80,7 @@ class OrdersPage extends StatelessWidget {
                               ? FlatButton(
                                   onPressed: () {
                                     try {
-                                      Database().updateOrderStatusToAccepted(
+                                      Database(uid: userId).updateOrderStatusToAccepted(
                                           docId: doc[i].reference.id);
                                     } catch (e) {
                                       print(e);
@@ -108,7 +108,7 @@ class OrdersPage extends StatelessWidget {
                                       ? FlatButton(
                                           onPressed: () {
                                             try {
-                                              Database()
+                                              Database(uid: userId)
                                                   .updateOrderStatusToCashReceived(
                                                       docId:
                                                           doc[i].reference.id);
