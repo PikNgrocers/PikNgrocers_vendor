@@ -57,31 +57,27 @@ class OrdersPage extends StatelessWidget {
                                           'Order Completed',
                                           style: TextStyle(color: Colors.green),
                                         ),
-                          leading:
-                              doc[i].data()['OrderStatus'] == 'Cash Received'
-                                  ? null
-                                  : IconButton(
-                                      icon: Icon(
-                                        Icons.list,
-                                        color: Colors.white,
-                                      ),
-                                      onPressed: () {
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return OrderedProductListWid(
-                                                  doc: doc,
-                                                  i: i,
-                                                  products: products);
-                                            });
-                                      },
-                                    ),
+                          leading: IconButton(
+                            icon: Icon(
+                              Icons.list,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return OrderedProductListWid(
+                                        doc: doc, i: i, products: products);
+                                  });
+                            },
+                          ),
                           trailing: doc[i].data()['OrderStatus'] == 'Waiting'
                               ? FlatButton(
                                   onPressed: () {
                                     try {
-                                      Database(uid: userId).updateOrderStatusToAccepted(
-                                          docId: doc[i].reference.id);
+                                      Database(uid: userId)
+                                          .updateOrderStatusToAccepted(
+                                              docId: doc[i].reference.id);
                                     } catch (e) {
                                       print(e);
                                     }
